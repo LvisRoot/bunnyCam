@@ -34,7 +34,7 @@ class v4lCam:public camera_context,public VideoCam
     bool error;
 
 public:
-    v4lCam(const char *dev_name, Size2D frame_size, int f_per_sec, const char *log_name=NULL);
+    v4lCam(const char *dev_name, Size2D frame_size, int f_per_sec, const bool trigger=false, const char *log_name=NULL);
     ~v4lCam();
     int WaitFrame(bool drop_frames=true) override;
     int GrabFrame(RGB24Pixel *data, double &tstamp,bool drop_frames=true) override;

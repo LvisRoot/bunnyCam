@@ -23,10 +23,10 @@
 #include <CamLib/v4lcam.h>
 #include "UtilLib/util.h"
 namespace  rebvo{
-v4lCam::v4lCam(const char *dev_name,Size2D frame_size,int f_per_sec,const char *log_name)
+v4lCam::v4lCam(const char *dev_name,Size2D frame_size,int f_per_sec, const bool trigger,const char *log_name)
     :VideoCam(log_name,frame_size)
 {
-    if(CamaraInit(dev_name, this,frame_size,f_per_sec)){
+    if(CamaraInit(dev_name, this,frame_size,f_per_sec,trigger)){
         printf("\nv4lCam: No puedo iniciar la camara %s\n",dev_name);
         error=true;
         return;

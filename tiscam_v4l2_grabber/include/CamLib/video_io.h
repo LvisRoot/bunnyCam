@@ -71,7 +71,7 @@ struct camera_context {
 	struct v4l2_buffer v2l_buf;
 };
 
-int CamaraInit(const char * dev_name, struct camera_context *cam,struct Size2D frameSize, uint fps);
+int CamaraInit(const char * dev_name, struct camera_context *cam,struct Size2D frameSize, uint fps, const bool trigger = false);
 int CamaraWaitFrame(struct camera_context *cam);
 int CamaraClose(struct camera_context *cam);
 int CamaraGrabFrame(struct camera_context *cam, union RGB24Pixel *data,struct timeval *tstamp);

@@ -33,13 +33,13 @@ int main(int argc, char * argv[]){
 
 	signal(SIGINT, intHandler);
 
-	if (argc!= 7){
-		std::cout <<"Usage: tiscam_v4l_grabber device width heigth fps out_type folder_name\n";
+	if (argc!= 9){
+		std::cout <<"Usage: tiscam_v4l_grabber device width heigth quality fps trigger out_type folder_name\n";
 		std::cout <<"out_type: 0=x11 1=ppm(raw) 2=jpg(using OMX) 3=jpg(using gd)\n";
 		return -1;
 	}
 
-	int out_type=atoi(argv[5]);
+	int out_type=atoi(argv[7]);
 
 	bool use_x11=out_type==0;
 
@@ -47,7 +47,7 @@ int main(int argc, char * argv[]){
 
 
     Size2D frameSize{uint(atoi(argv[2])),uint(atoi(argv[3]))};
-	v4lCam camara(argv[1],frameSize,atoi(argv[4]));
+	v4lCam camara(argv[1],frameSize,atoi(argv[5]),(bool)atoi(argv[6]));
 
 	assert(!camara.Error());
 
@@ -59,10 +59,10 @@ int main(int argc, char * argv[]){
 		encoder = new VideoEncoder(frameSize);
 		break;
 	case 2:
-		encoder = new OmxEncoder(frameSize,3);//frameSize);
+		encoder = new OmxEncoder(frameSize,3,atoi(argv[4]));//frameSize);
 		break;
 	case 3:
-		encoder = new MJPEGEncoder(frameSize);
+		encoder = new MJPEGEncoder(frameSize,atoi(argv[4]));
 		break;
 	}
 
@@ -106,7 +106,7 @@ int main(int argc, char * argv[]){
 
         		assert(tStampQ.size()>0);
 
-        		snprintf(image_file_name,1024,"%s/img%lf%s",argv[6],tStampQ.front(),file_end);
+        		snprintf(image_file_name,1024,"%s/img%lf%s",argv[8],tStampQ.front(),file_end);
 
         		tStampQ.pop();
 
@@ -143,6 +143,8 @@ int main(int argc, char * argv[]){
 
 		}
 	}
+
+	 std::cout <<"Cam closed";
 
 	return 0;
 }

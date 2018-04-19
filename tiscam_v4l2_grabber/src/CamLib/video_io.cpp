@@ -50,7 +50,7 @@ static void xioctl(int fh, int request, void *arg)
 	}
 }
 
-int CamaraInit(const char * dev_name, struct camera_context *cam, struct Size2D frameSize, uint fps){
+int CamaraInit(const char * dev_name, struct camera_context *cam, struct Size2D frameSize, uint fps, const bool trigger){
 	struct v4l2_format              fmt;
 	struct v4l2_buffer              buf;
 	struct v4l2_requestbuffers      req;
@@ -152,6 +152,10 @@ int CamaraInit(const char * dev_name, struct camera_context *cam, struct Size2D 
 	type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
 
 	xioctl(cam->fd, VIDIOC_STREAMON, &type);
+
+	v4l2_control triggerReq = {V4L2_CID_PRIVACY, trigger};
+
+	xioctl(cam->fd, VIDIOC_S_CTRL, &triggerReq);
 	printf("\nCamara: Stream init correctly\n");
 
 	return 0;

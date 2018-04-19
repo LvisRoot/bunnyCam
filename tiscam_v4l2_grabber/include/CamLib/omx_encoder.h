@@ -87,6 +87,8 @@ class OmxEncoder: public FrameEncoder {
 	ApplicationContext ctx;
 	OMX_PARAM_PORTDEFINITIONTYPE encoder_portdef;
 
+	OMX_IMAGE_PARAM_QFACTORTYPE qualityFactor;
+
 	int omxInit();
 
 public:

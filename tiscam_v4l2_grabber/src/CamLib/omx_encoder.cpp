@@ -417,6 +417,16 @@ int rebvo::OmxEncoder::omxInit() {
 		omx_die(r, "Failed to set port definition for encoder output port 341");
 	}
 
+	//Quality
+	OMX_IMAGE_PARAM_QFACTORTYPE omxQuality;
+	OMX_INIT_STRUCTURE (omxQuality);
+	omxQuality.nPortIndex = 341;
+	omxQuality.nQFactor = quality;
+
+	if((r=OMX_SetParameter(ctx.encoder, OMX_IndexParamQFactor, &omxQuality)) != OMX_ErrorNone) {
+		omx_die(r, "Failed to set port definition for encoder output port 341");
+	}
+
 	// Switch components to idle state
 	cerr << COLOR_YELLOW << "Switching: Encoder component to idle..." << COLOR_NC << endl;
 	if((r=OMX_SendCommand(ctx.encoder, OMX_CommandStateSet, OMX_StateIdle, NULL)) != OMX_ErrorNone) {

@@ -8,7 +8,8 @@ On the other hand, a wide range of monocular algorithms are computationally inex
 
 This project tries to build a stereo camera inspired by bunny's FOV (Fig. 1), which shows a very narrow S-FOV, thus the name "BunnyCam".
 
-![alt text](https://github.com/LvisRoot/bunnyCam/tree/master/readme/images/bunnyFov.jpg)
+![bunnyFov](https://github.com/LvisRoot/bunnyCam/tree/master/readme/images/bunnyFov.jpg)
+
 Fig. 1: Bunny vs. Human field of view (src: vr lense lab)
 
 Monocular algoritms can largely benefit from the device's broad monocular FOV (M-FOV), combined with a direct scale estimation obtained by processing the narrow S-FOV, which in turn is less expensive compared to regular stereo cameras.
